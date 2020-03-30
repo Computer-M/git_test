@@ -1,40 +1,67 @@
 <html>
   <head>
-    <title>Not DuckDuckGo</title>
+    <title>RPS Game</title>
     <meta content="">
     <link rel="stylesheet" href="style.css">
     <style></style>
   </head>
   <body>
-    <!-- Logo on Centre -->
-    <div style = "margin: auto;">
-      <img src ="https://upload.wikimedia.org/wikipedia/en/thumb/8/88/DuckDuckGo_logo.svg/150px-DuckDuckGo_logo.svg.png" alt="Logo">    
-    </div>
-    <form class = form>
-      <input type="text">
-      <input type="submit" value="Search">
-    </form>
-
     <script>
-      function add7(val) {
-        let newVal = val + 7;
-        return newVal
+      // Random Int from 0-2 inclusive
+      function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min) ) + min;
       }
-      function lastLetter(str){
-        let last = str.slice(-1)
-        return last
+      // Computer Plays a random move
+      function ComputerMove(){
+        let move = getRndInteger(0,3)
+        switch (move){
+          case 0:
+            return "rock"
+            break;
+          case 1:
+            return "paper"
+            break; 
+          case 2: 
+          return "scissors"
+          break;
+        }
       }
-      console.log((23 + 97) /3)
-      let a = 45
-      console.log("a * 9 =", a*9)
-      if (a<9){
-        console.log("a<9")
+      // Checks Wins/Losses and changes Wins/Losses based on result
+      function Game(Pmove,Cmove,results){
+        if (Pmove.toLowerCase() === "rock"){
+          if (Cmove === "rock"){console.log("You Draw! Rock and Rock both Win")}
+          else if (Cmove === "paper"){console.log("You Lost! Paper beats Rock"); results[1]++}
+          else if (Cmove === "scissors"){console.log("You Won! Rock beats Scissors"); results[0]++}
+          else {console.log("Error has occured")}
+        }
+        else if (Pmove.toLowerCase() === "paper"){
+          if (Cmove === "rock"){console.log("You Won! Paper Beats Rock"); results[0]++}
+          else if (Cmove === "paper"){console.log("You Draw! Paper and Paper both Win")}
+          else if (Cmove === "scissors"){console.log("You Lost! Scissors beat Paper"); results[1]++}
+          else {console.log("Error has Occured")}
+        }
+        else if (Pmove.toLowerCase() === "scissors"){
+          if (Cmove === "rock"){console.log("You Lost! Rock beats Scissors"); results[1]++}
+          else if (Cmove === "paper"){console.log("You Won! Scissors beat Scissors"); results[0]++}
+          else if (Cmove === "scissors"){console.log("You Draw! Scissors and Scissors both Win")}
+          else {console.log("Error has Occured")}
+        }
+        else {
+          console.log("Player has made invalid move")
+          results[1]++
+        }
+        return results
       }
-      else {
-        console.log("a>=9")
+      //Main 5 game loop and input
+      let games = 0; let results = [0,0]
+      while (games < 6){
+        let PlayerMove = prompt("Choose 'Rock', 'Paper', 'Scissors'")
+        Game(PlayerMove,ComputerMove(),results)
+        games++
       }
-      console.log(add7(15))
-      console.log(lastLetter("Good"))
+      console.log("You won", results[0] ,"Games")
+      console.log("You Lost", results[1] ,"Games")
+
     </script>
   </body>
 </html>
