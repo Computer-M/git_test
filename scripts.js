@@ -109,3 +109,10 @@ function PlayScissors(){
     let player = "scissors";
     Game(player, ComputerMove())
 }
+function ScoreReset(){
+    results = [0,0]
+    try {
+        ClearDisplay()
+    }
+    catch(ReferenceError){}
+}
